@@ -1,8 +1,10 @@
 package service
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -34,6 +36,32 @@ func GetUserinfoHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		fmt.Printf("code:%s",code)
+
+		jsonStr := fmt.Sprintf(`{ "code": "%s" }`,code)
+
+
+		url:= "https://www.denlery.top/api/v1/login"
+		req, err := http.NewRequest("POST", url, bytes.NewBuffer( []byte(jsonStr)))
+		req.Header.Set("Content-Type", "application/json")
+
+		client := &http.Client{}
+		resp, err := client.Do(req)
+		if err != nil {
+			fmt.Printf("err:%s",err.Error())
+		}
+		defer resp.Body.Close()
+
+
+		statuscode := resp.StatusCode
+		hea := resp.Header
+		rb, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println(string(rb))
+		fmt.Println(statuscode)
+		fmt.Println(hea)
+
+
+
+
 
 	} else {
 		res.Code = -1
