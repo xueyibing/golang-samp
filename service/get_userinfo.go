@@ -40,7 +40,7 @@ func GetUserinfoHandler(w http.ResponseWriter, r *http.Request) {
 		jsonStr := fmt.Sprintf(`{ "code": "%s" }`,code)
 
 
-		url:= "https://www.denlery.top/api/v1/login"
+		url:= "https://api.weixin.qq.com/wxa/business/getuserphonenumber"
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer( []byte(jsonStr)))
 		req.Header.Set("Content-Type", "application/json")
 
