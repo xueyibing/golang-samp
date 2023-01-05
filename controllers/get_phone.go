@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/goccy/go-json"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
@@ -15,6 +16,16 @@ type GetPhoneReq struct {
 
 type GetPhoneResp struct {
 	ErrMsg string `json:"err_msg"`
+	Phone  string `json:"Phone"`
+}
+
+type PhoneInfo struct {
+	PhoneNumber string `json:"phoneNumber"`
+}
+type PhoneResp struct {
+	ErrCode   int    `json:"errcode"`
+	ErrMsg	  string `json:"errmsg"`
+	PhoneInfo PhoneInfo `json:"phone_info" json:"phone_info"`
 }
 
 func GetPhone(c *gin.Context) {
@@ -46,12 +57,21 @@ func GetPhone(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
-
 	rb, _ := ioutil.ReadAll(re.Body)
 	fmt.Println(string(rb))
+	pr := PhoneResp{}
+	err = json.Unmarshal(rb,&pr)
+	if err != nil {
+		logrus.Error(err)
+		resp.ErrMsg = err.Error()
+		c.JSON(http.StatusBadRequest, resp)
+		return
+	}
 
 
 	resp.ErrMsg = "success"
+	resp.Phone = pr.PhoneInfo.PhoneNumber
+
 	c.JSON(http.StatusOK, resp)
 	logrus.Info("success")
 
