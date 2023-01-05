@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"wxcloudrun-golang/db/dao"
-	"wxcloudrun-golang/db/model"
+	"wxcloudrun-golang/models"
 
 	"gorm.io/gorm"
 )
@@ -105,7 +105,7 @@ func upsertCounter(r *http.Request) (int32, error) {
 		createdAt = currentCounter.CreatedAt
 	}
 
-	counter := &model.CounterModel{
+	counter := &models.CounterModel{
 		Id:        1,
 		Count:     count,
 		CreatedAt: createdAt,
@@ -123,7 +123,7 @@ func clearCounter() error {
 }
 
 // getCurrentCounter 查询当前计数器
-func getCurrentCounter() (*model.CounterModel, error) {
+func getCurrentCounter() (*models.CounterModel, error) {
 	counter, err := dao.Imp.GetCounter(1)
 	if err != nil {
 		return nil, err
