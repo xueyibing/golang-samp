@@ -16,7 +16,7 @@ type GetPhoneReq struct {
 
 type GetPhoneResp struct {
 	ErrMsg string `json:"err_msg"`
-	Phone  string `json:"Phone"`
+	Phone  string `json:"phone"`
 }
 
 type PhoneInfo struct {
