@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/sirupsen/logrus"
+	"wxcloudrun-golang/middleware"
 
 	"os"
 
@@ -38,6 +38,7 @@ func main() {
 
 
 	r := router.InitRouter()
+	r.Use(middleware.LoggerMiddleware("./", "log"))
 	r.Run(":80" )
 
 

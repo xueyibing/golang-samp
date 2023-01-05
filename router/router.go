@@ -7,7 +7,7 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
-	router.POST("/api/getUserinfo", controllers.CreateUser)
+	router.POST("/api/createUser", controllers.CreateUser)
 
 	return router
 }

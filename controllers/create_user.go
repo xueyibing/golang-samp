@@ -26,6 +26,8 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
+	logrus.Debugf("CreateUser:%v",req)
+
 	dao, err := models.GetUserDao()
 	if err != nil {
 		logrus.WithError(err).Error("GetUserDao failed")
