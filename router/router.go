@@ -8,6 +8,7 @@ import (
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 	router.POST("/api/createUser", controllers.CreateUser)
+	router.POST("/api/getPhone", controllers.GetPhone)
 
 	return router
 }

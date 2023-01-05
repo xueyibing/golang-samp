@@ -38,8 +38,6 @@ func GetUserinfoHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("code:%s",code)
 
 		jsonStr := fmt.Sprintf(`{ "code": "%s" }`,code)
-
-
 		url:= "https://api.weixin.qq.com/wxa/business/getuserphonenumber"
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer( []byte(jsonStr)))
 		req.Header.Set("Content-Type", "application/json")
