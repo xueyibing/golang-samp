@@ -68,11 +68,10 @@ func GetPhone(c *gin.Context) {
 		return
 	}
 
-
 	resp.ErrMsg = "success"
 	resp.Phone = pr.PhoneInfo.PhoneNumber
-
 	c.JSON(http.StatusOK, resp)
-	logrus.Info("success")
+	logrus.Info("success",resp)
+	return
 
 }
